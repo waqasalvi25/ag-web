@@ -7,6 +7,7 @@ import { getBasename } from "./utils/Functions";
 import Home from "./pages/Home.tsx";
 import About from "./pages/About.tsx";
 import Products from "./pages/Products.tsx";
+import QualityFoodSafety from "./pages/QualityFoodSafety.tsx";
 import Wheat from "./pages/Wheat.tsx";
 import Rice from "./pages/Rice.tsx";
 import Maize from "./pages/Maize.tsx";
@@ -35,17 +36,7 @@ const App = () => (
         <Route path="/products/maize" element={<Maize />} />
         <Route path="/products/export-crops" element={<ExportCrops />} />
         <Route path="/trading-exports" element={<TradingExports />} />
-        <Route
-          path="/quality-food-safety"
-          element={
-            <SimplePage
-              crumb="Quality"
-              title="Quality & Food Safety"
-              description="Quality checks and food-safety controls for AG grain products, from sourcing through shipment."
-              text="Every lot is handled against agreed specifications, with checks for cleanliness, consistency, and the food-safety needs of the destination market."
-            />
-          }
-        />
+        <Route path="/quality-food-safety" element={<QualityFoodSafety />} />
         <Route
           path="/private-label-packaging"
           element={

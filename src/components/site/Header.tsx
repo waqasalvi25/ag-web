@@ -38,7 +38,11 @@ export function Header() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const home = location.pathname === "/";
+  const home =
+    location.pathname === "/" ||
+    location.pathname === "/about" ||
+    location.pathname === "/products" ||
+    location.pathname === "/quality-food-safety";
 
   useEffect(() => {
     setOpen(false);
