@@ -1,77 +1,62 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useRise } from "@/components/motion/Reveal";
 import { images } from "@/lib/images";
 import { commodities } from "@/components/site/navLinks";
 
-const LOOP_COPIES = 3;
-
 export function CommoditiesSection() {
-  const rise = useRise<HTMLElement>(true);
+  const rise = useRise<HTMLDivElement>(true);
+  const pinRef = useRef<HTMLElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const dragged = useRef(false);
   const dragging = useRef(false);
   const startLeft = useRef(0);
   const startX = useRef(0);
-  const [paused, setPaused] = useState(false);
-
-  const slides = useMemo(
-    () =>
-      Array.from({ length: LOOP_COPIES }, (_, copy) =>
-        commodities.map((item) => ({ ...item, key: `${item.href}-${copy}` })),
-      ).flat(),
-    [],
-  );
 
   useEffect(() => {
+    const pin = pinRef.current;
     const node = scrollerRef.current;
-    if (!node) return;
+    const sticky = rise.ref.current;
+    if (!pin || !node || !sticky) return;
 
-    const getSetWidth = () => {
-      const cards = node.querySelectorAll<HTMLElement>(".ag-commodity-slide");
-      if (cards.length < commodities.length * 2) return 0;
-      return cards[commodities.length].offsetLeft - cards[0].offsetLeft;
-    };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      pin.style.removeProperty("--ag-commodities-travel");
+      return;
+    }
 
-    const normalize = () => {
-      const width = getSetWidth();
-      if (!width) return;
-
-      if (node.scrollLeft >= width * 2) {
-        node.scrollLeft -= width;
-        startLeft.current -= width;
-      } else if (node.scrollLeft < width) {
-        node.scrollLeft += width;
-        startLeft.current += width;
-      }
-    };
-
-    requestAnimationFrame(() => {
-      const width = getSetWidth();
-      if (width) node.scrollLeft = width;
-    });
-
-    node.addEventListener("scroll", normalize, { passive: true });
-    return () => node.removeEventListener("scroll", normalize);
-  }, []);
-
-  useEffect(() => {
-    const node = scrollerRef.current;
-    if (!node || paused) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const timer = window.setInterval(() => {
+    const syncFromPage = () => {
       if (dragging.current) return;
-      const card = node.querySelector<HTMLElement>(".ag-commodity-slide");
-      if (!card) return;
-      const styles = window.getComputedStyle(node);
-      const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
-      const step = card.offsetWidth + gap;
-      node.scrollBy({ left: step, behavior: "smooth" });
-    }, 3200);
+      const total = Math.max(pin.offsetHeight - sticky.offsetHeight, 0);
+      if (total <= 0) {
+        node.scrollLeft = 0;
+        return;
+      }
+      const scrolled = Math.min(Math.max(-pin.getBoundingClientRect().top, 0), total);
+      const max = Math.max(node.scrollWidth - node.clientWidth, 0);
+      node.scrollLeft = (scrolled / total) * max;
+    };
 
-    return () => window.clearInterval(timer);
-  }, [paused]);
+    const measure = () => {
+      const max = Math.max(node.scrollWidth - node.clientWidth, 0);
+      pin.style.setProperty(
+        "--ag-commodities-travel",
+        `${Math.round(sticky.offsetHeight + max)}px`,
+      );
+      syncFromPage();
+    };
+
+    measure();
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    ro?.observe(node);
+    ro?.observe(sticky);
+    window.addEventListener("scroll", syncFromPage, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("scroll", syncFromPage);
+      window.removeEventListener("resize", measure);
+    };
+  }, [rise.ref]);
 
   useEffect(() => {
     const node = scrollerRef.current;
@@ -85,7 +70,6 @@ export function CommoditiesSection() {
       startLeft.current = node.scrollLeft;
       node.classList.add("is-dragging");
       node.setPointerCapture(event.pointerId);
-      setPaused(true);
     };
 
     const onMove = (event: PointerEvent) => {
@@ -103,7 +87,6 @@ export function CommoditiesSection() {
       if (node.hasPointerCapture(event.pointerId)) {
         node.releasePointerCapture(event.pointerId);
       }
-      if (!node.matches(":hover")) setPaused(false);
     };
 
     node.addEventListener("pointerdown", onDown);
@@ -119,49 +102,45 @@ export function CommoditiesSection() {
   }, []);
 
   return (
-    <section ref={rise.ref} className={`ag-commodities ${rise.className}`}>
-      <div className="ag-container">
-        <div className="ag-commodities-head">
-          <h2>
-            Premium agricultural
-            <br />
-            commodities
-          </h2>
-          <p>
-            Explore our commodity categories for domestic trading and international enquiries.
-            Specifications, grades, packaging and availability are confirmed for each order.
-          </p>
+    <section ref={pinRef} className="ag-commodities-pin">
+      <div ref={rise.ref} className={`ag-commodities ag-commodities-sticky ${rise.className}`}>
+        <div className="ag-container">
+          <div className="ag-commodities-head">
+            <h2>
+              Premium agricultural
+              <br />
+              commodities
+            </h2>
+            <p>
+              Explore our commodity categories for domestic trading and international enquiries.
+              Specifications, grades, packaging and availability are confirmed for each order.
+            </p>
+          </div>
         </div>
-      </div>
-      <div
-        ref={scrollerRef}
-        className="ag-commodity-slider"
-        aria-label="Commodity categories"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => {
-          if (!dragging.current) setPaused(false);
-        }}
-        onFocusCapture={() => setPaused(true)}
-        onBlurCapture={() => setPaused(false)}
-      >
-        {slides.map((item) => (
-          <Link
-            key={item.key}
-            to={item.href}
-            className="ag-commodity-slide"
-            draggable={false}
-            onClick={(event) => {
-              if (dragged.current) event.preventDefault();
-            }}
-            onDragStart={(event) => event.preventDefault()}
-          >
-            <img src={images[item.image]} alt={item.alt} draggable={false} />
-            <span className="ag-commodity-meta">
-              <span>{item.index}</span>
-              <span>{item.title}</span>
-            </span>
-          </Link>
-        ))}
+        <div
+          ref={scrollerRef}
+          className="ag-commodity-slider"
+          aria-label="Commodity categories"
+        >
+          {commodities.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className="ag-commodity-slide"
+              draggable={false}
+              onClick={(event) => {
+                if (dragged.current) event.preventDefault();
+              }}
+              onDragStart={(event) => event.preventDefault()}
+            >
+              <img src={images[item.image]} alt={item.alt} draggable={false} />
+              <span className="ag-commodity-meta">
+                <span>{item.index}</span>
+                <span>{item.title}</span>
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

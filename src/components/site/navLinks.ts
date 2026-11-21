@@ -69,4 +69,32 @@ export const commodities = [
     image: "grains" as const,
     alt: "Hands holding harvested grain",
   },
+  {
+    index: "05",
+    title: "Pulses",
+    href: "/products/export-crops",
+    image: "pulses" as const,
+    alt: "Dried pulses ready for trade",
+  },
+  {
+    index: "06",
+    title: "Pink Salt",
+    href: "/products/export-crops",
+    image: "salt" as const,
+    alt: "Himalayan pink salt crystals",
+  },
+  {
+    index: "07",
+    title: "Spices",
+    href: "/products/export-crops",
+    image: "spices" as const,
+    alt: "Assorted spices for export programmes",
+  },
+  {
+    index: "08",
+    title: "Oilseeds",
+    href: "/products/export-crops",
+    image: "oilseeds" as const,
+    alt: "Oilseeds prepared for wholesale supply",
+  },
 ];

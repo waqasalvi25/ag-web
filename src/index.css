@@ -737,6 +737,21 @@ line-height: 28px; /* 140% */
   padding: clamp(3.5rem, 6vw, 5.5rem) 0;
 }
 
+.ag-commodities-pin {
+  position: relative;
+  height: var(--ag-commodities-travel, 220vh);
+}
+
+.ag-commodities-sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+
 .ag-commodities {
   background: #fff;
   padding: 2.6rem 0 4.2rem;
@@ -861,9 +876,8 @@ text-transform: uppercase;
   margin-top: 2rem;
   padding-left: var(--ag-slider-inset);
   padding-right: var(--ag-gutter);
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  scroll-padding-left: var(--ag-slider-inset);
+  overflow-x: hidden;
+  scroll-snap-type: none;
   scrollbar-width: none;
   cursor: grab;
   touch-action: pan-y;
@@ -3672,5 +3686,17 @@ text-transform: uppercase;
     transition: none;
     transform: none;
     opacity: 1;
+  }
+
+  .ag-commodities-pin {
+    height: auto;
+  }
+
+  .ag-commodities-sticky {
+    position: relative;
+  }
+
+  .ag-commodity-slider {
+    overflow-x: auto;
   }
 }
