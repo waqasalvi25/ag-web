@@ -20,7 +20,7 @@ const highlights = [
 ];
 
 export function HighlightsSection() {
-  const rise = useRise<HTMLElement>(true);
+  const rise = useRise<HTMLElement>({ self: true, stagger: true });
 
   return (
     <section ref={rise.ref} className={`ag-highlights ${rise.className}`}>

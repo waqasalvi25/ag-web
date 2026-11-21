@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { useRise } from "@/components/motion/Reveal";
 import { footerProducts, footerQuickLinks } from "@/components/site/navLinks";
 import { images } from "@/lib/images";
 
@@ -12,8 +13,10 @@ const social = [
 ];
 
 export function Footer() {
+  const rise = useRise<HTMLElement>({ stagger: true });
+
   return (
-    <footer className="ag-footer">
+    <footer ref={rise.ref} className={`ag-footer ${rise.className}`}>
       <div className="ag-container ag-footer-grid">
         <div className="ag-footer-brand">
           <Link to="/" className="ag-footer-logo" aria-label="AG Grain Industries home">

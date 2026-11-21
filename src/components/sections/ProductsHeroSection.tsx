@@ -24,7 +24,7 @@ export function ProductsHeroSection() {
         alt="Tractor working across agricultural fields"
       />
       <div className="ag-about-hero-shade" />
-      <div className="ag-about-hero-copy">
+      <div className="ag-about-hero-copy ag-hero-enter">
         <div className="ag-theme" role="group" aria-label="Color theme">
           <button
             type="button"

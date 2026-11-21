@@ -23,7 +23,7 @@ function StoryButton({
 }
 
 export function RelationshipSection() {
-  const rise = useRise<HTMLElement>(true);
+  const rise = useRise<HTMLElement>({ self: true });
 
   return (
     <section ref={rise.ref} className={`ag-stories ${rise.className}`}>
@@ -74,7 +74,7 @@ export function RelationshipSection() {
             </p>
             <div className="ag-story-actions">
               <StoryButton to="/request-a-quote" label="Request a Quote" />
-              <StoryButton to="/request-a-quote" label="Request a Quote" variant="line" />
+              <StoryButton to="/contact" label="Contact Team" />
             </div>
           </div>
         </article>

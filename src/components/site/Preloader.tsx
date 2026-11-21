@@ -8,10 +8,15 @@ export function Preloader() {
 
   useEffect(() => {
     document.documentElement.classList.add("ag-preloading");
+    document.documentElement.classList.remove("ag-ready");
+
     const timer = window.setTimeout(() => {
       setVisible(false);
       document.documentElement.classList.remove("ag-preloading");
+      document.documentElement.classList.add("ag-ready");
+      window.dispatchEvent(new Event("ag-ready"));
     }, PRELOADER_MS);
+
     return () => {
       window.clearTimeout(timer);
       document.documentElement.classList.remove("ag-preloading");

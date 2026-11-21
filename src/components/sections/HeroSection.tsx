@@ -24,7 +24,7 @@ export function HeroSection() {
         alt="Combine harvester cutting a golden wheat field"
       />
       <div className="ag-hero-shade" />
-      <div className="ag-hero-copy">
+      <div className="ag-hero-copy ag-hero-enter">
         <div className="ag-theme" role="group" aria-label="Color theme">
           <button
             type="button"

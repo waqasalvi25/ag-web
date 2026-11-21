@@ -4,7 +4,7 @@ import { useRise } from "@/components/motion/Reveal";
 import { images } from "@/lib/images";
 
 export function PartnerSection() {
-  const rise = useRise<HTMLElement>(true);
+  const rise = useRise<HTMLElement>({ self: true });
 
   return (
     <section ref={rise.ref} className={`ag-partner ${rise.className}`}>

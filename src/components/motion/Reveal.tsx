@@ -1,46 +1,80 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
+type RiseOptions = {
+  self?: boolean;
+  stagger?: boolean;
+};
+
 type Rise<T extends HTMLElement> = {
   ref: React.RefObject<T | null>;
   className: string;
 };
 
-export function useRise<T extends HTMLElement = HTMLDivElement>(self = false): Rise<T> {
+function isSiteReady() {
+  return document.documentElement.classList.contains("ag-ready");
+}
+
+export function useRise<T extends HTMLElement = HTMLDivElement>(
+  selfOrOptions: boolean | RiseOptions = false,
+): Rise<T> {
+  const options: RiseOptions =
+    typeof selfOrOptions === "boolean" ? { self: selfOrOptions } : selfOrOptions;
   const ref = useRef<T>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setVisible(true);
       return;
     }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setVisible(true);
-        observer.disconnect();
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
+
+    let observer: IntersectionObserver | null = null;
+
+    const start = () => {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          setVisible(true);
+          observer?.disconnect();
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
+      );
+      observer.observe(node);
+    };
+
+    if (isSiteReady()) {
+      start();
+    } else {
+      const onReady = () => start();
+      window.addEventListener("ag-ready", onReady, { once: true });
+      return () => {
+        window.removeEventListener("ag-ready", onReady);
+        observer?.disconnect();
+      };
+    }
+
+    return () => observer?.disconnect();
   }, []);
+
+  const base = options.stagger ? "ag-rise-stagger" : options.self ? "ag-rise-self" : "ag-rise";
 
   return {
     ref,
-    className: `${self ? "ag-rise-self" : "ag-rise"}${visible ? " is-in" : ""}`,
+    className: `${base}${visible ? " is-in" : ""}`,
   };
 }
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
+  stagger?: boolean;
 };
 
-export function Reveal({ children, className }: RevealProps) {
-  const rise = useRise<HTMLDivElement>();
+export function Reveal({ children, className, stagger = false }: RevealProps) {
+  const rise = useRise<HTMLDivElement>({ stagger });
   return (
     <div ref={rise.ref} className={[className, rise.className].filter(Boolean).join(" ")}>
       {children}
