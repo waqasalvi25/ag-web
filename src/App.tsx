@@ -8,6 +8,7 @@ import Home from "./pages/Home.tsx";
 import About from "./pages/About.tsx";
 import Products from "./pages/Products.tsx";
 import QualityFoodSafety from "./pages/QualityFoodSafety.tsx";
+import PrivateLabelPackaging from "./pages/PrivateLabelPackaging.tsx";
 import Wheat from "./pages/Wheat.tsx";
 import Rice from "./pages/Rice.tsx";
 import Maize from "./pages/Maize.tsx";
@@ -20,7 +21,6 @@ import DownloadCatalog from "./pages/DownloadCatalog.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import TermsConditions from "./pages/TermsConditions.tsx";
 import NotFound from "./pages/NotFound.tsx";
-import { SimplePage } from "./pages/SimplePage";
 
 const App = () => (
   <BrowserRouter basename={getBasename() || undefined}>
@@ -37,17 +37,7 @@ const App = () => (
         <Route path="/products/export-crops" element={<ExportCrops />} />
         <Route path="/trading-exports" element={<TradingExports />} />
         <Route path="/quality-food-safety" element={<QualityFoodSafety />} />
-        <Route
-          path="/private-label-packaging"
-          element={
-            <SimplePage
-              crumb="Packaging"
-              title="Private Label & Packaging"
-              description="Private-label grain products and packaging programs for buyers who want their own brand."
-              text="Packing, labeling, and private-label options are agreed before production, so the product arrives ready for your brand and your market."
-            />
-          }
-        />
+        <Route path="/private-label-packaging" element={<PrivateLabelPackaging />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/request-a-quote" element={<RequestQuote />} />

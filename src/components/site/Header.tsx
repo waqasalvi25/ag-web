@@ -42,7 +42,10 @@ export function Header() {
     location.pathname === "/" ||
     location.pathname === "/about" ||
     location.pathname === "/products" ||
-    location.pathname === "/quality-food-safety";
+    location.pathname === "/quality-food-safety" ||
+    location.pathname === "/private-label-packaging" ||
+    location.pathname === "/trading-exports" ||
+    location.pathname === "/contact";
 
   useEffect(() => {
     setOpen(false);
@@ -79,7 +82,9 @@ export function Header() {
 
       <Link to="/contact" className="ag-enquire">
         Enquire Now
-        <Mail className="size-4" />
+        <span className="ag-btn-arrow" aria-hidden="true">
+          <Mail className="size-4" />
+        </span>
       </Link>
 
       <button
@@ -142,7 +147,9 @@ export function Header() {
         <div className="ag-mobile-actions">
           <Link to="/contact" className="ag-enquire">
             Enquire Now
-            <Mail className="size-4" />
+            <span className="ag-btn-arrow" aria-hidden="true">
+              <Mail className="size-4" />
+            </span>
           </Link>
         </div>
       </aside>
