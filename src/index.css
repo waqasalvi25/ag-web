@@ -4,8 +4,16 @@
 
 @font-face {
   font-family: "Davors";
+  src: url("/fonts/Davors-Bold.ttf") format("truetype");
+  font-weight: 600 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Davors";
   src: url("/fonts/Davors-Regular-Exfont5eee.otf") format("opentype");
-  /* font-weight: 600 800; */
+  font-weight: 400 500;
   font-style: normal;
   font-display: swap;
 }
