@@ -23,7 +23,7 @@ export function Footer() {
             <img src={images.footerLogo} alt="AG Grain Industries Private Limited" />
           </Link>
           <p className="ag-footer-tagline">Nourishing Today, Enriching Tomorrow.</p>
-          <p>Trading and exporter of Agricultural Commodities.</p>
+          <p className="!mt-0">Trading and exporter of Agricultural Commodities.</p>
           <div className="ag-social">
             {social.map((item) => (
               <a
@@ -72,10 +72,10 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <a href="mailto:info@aggrainindustries.com">info@aggrainindustries.com</a>
+              <a href="mailto:info@aggrainindustries.com">Email: info@aggrainindustries.com</a>
             </li>
             <li>
-              <a href="tel:+923003003025">+92 300 300 3025</a>
+              <a href="tel:+923003003025">Telephone / WhatsApp: +92 300 300 3025</a>
             </li>
             <li>
               <a href="https://www.aggrainindustries.com" target="_blank" rel="noreferrer">

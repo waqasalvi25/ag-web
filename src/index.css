@@ -186,7 +186,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100px;
+  min-height: 120px;
   background: #fff;
   border-bottom: 1px solid transparent;
 }
@@ -313,7 +313,7 @@ html.ag-ready .ag-nav-pill > li {
 
 .ag-header > .ag-enquire {
   position: absolute;
-  top: 20px;
+  top: 29px;
   right: 1.35rem;
   opacity: 0;
 }
@@ -772,7 +772,7 @@ button,
   color: #fff;
   font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -781,7 +781,7 @@ button,
   letter-spacing: 0.045em;
 
   color: #1E1E1E;
-font-size: 37px;
+font-size: 35px;
 font-style: normal;
 font-weight: 600;
 line-height: 45px; /* 121.622% */
@@ -789,7 +789,6 @@ line-height: 45px; /* 121.622% */
 }
 
 .ag-highlights p {
-  margin: 0.75rem 0 0;
   color: var(--ag-muted);
   font-size: 14px;
   line-height: 1.65;
@@ -860,7 +859,7 @@ line-height: 28px; /* 140% */
 
 .ag-commodities h2 {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4.3vw, 4.05rem);
+  font-size: clamp(2.5rem, 4.3vw, 4.34rem);
 
   color: #1E1E1E;
 /* font-size: 70px; */
@@ -1016,7 +1015,7 @@ text-transform: uppercase;
   position: relative;
   overflow: hidden;
   width: var(--ag-content);
-  min-height: clamp(520px, 52vw, 720px);
+  min-height: clamp(520px, 52vw, 90vh);
   margin-inline: auto;
   border-radius: 34px;
   display: grid;
@@ -1058,7 +1057,7 @@ text-transform: uppercase;
 .ag-partner-copy {
   position: relative;
   z-index: 1;
-  max-width: min(940px, 48%);
+  max-width: min(1280px, 56%);
   padding: clamp(2.4rem, 4vw, 3.6rem) clamp(1.6rem, 3.5vw, 3.4rem);
 }
 
@@ -1067,7 +1066,7 @@ text-transform: uppercase;
   color: #fff;
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 3.6vw, 4rem);
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 2px;
   line-height: 0.94;
   text-transform: uppercase;
@@ -1192,7 +1191,7 @@ text-transform: uppercase;
 .ag-step-slider {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 1.15rem;
   /* max-height: 28.5rem; */
   max-height: 100vh;
   overflow-y: hidden;
@@ -1215,14 +1214,18 @@ text-transform: uppercase;
 
 .ag-step-card {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.2rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 1.25rem;
   align-items: start;
   flex: 0 0 auto;
-  min-height: 8.4rem;
-  padding: 1.35rem 1.4rem 1.3rem;
-  border: 1px solid #e6e6e6;
-  border-radius: 18px;
+  box-sizing: border-box;
+  height: 302px;
+  min-height: 302px;
+  padding: 2.15rem 2rem 2.1rem 2.7rem;
+  /* border: 1px solid #e3e3e3; */
+  border-radius: 31px;
+border: 3px solid rgba(0, 0, 0, 0.20);
+  /* border-radius: 22px; */
   background: #fff;
   scroll-snap-align: start;
   user-select: none;
@@ -1230,35 +1233,41 @@ text-transform: uppercase;
 
 .ag-step-card h3 {
   margin: 0;
+  color: #161616;
   font-family: var(--font-display);
-  font-size: 46px;
+  font-size: clamp(1.85rem, 2.9vw, 2.9rem);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 57.169px;
   text-transform: uppercase;
-
-  color: #1E1E1E;
-font-style: normal;
-font-weight: 500;
-line-height: 57.169px; /* 105.714% */
-text-transform: uppercase;
 }
 
 .ag-step-card p {
-  margin: 0.7rem 0 0;
-  color: #666;
-  font-size: 23px;
-  line-height: 1.55;
+  max-width: 22.5rem;
+  margin: 1.15rem 0 0;
+  color: #3d3d3d;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.45;
 }
 
 .ag-step-card span {
-  color: #c4a35a;
+  display: block;
+  margin-top: -0.18em;
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 4vw, 5rem);
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-
-font-style: normal;
-font-weight: 500;
-line-height: 120.821px; /* 100% */
-text-transform: uppercase;
+  font-size: clamp(4.4rem, 6.6vw, 6.75rem);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.82;
+  text-align: right;
+  text-transform: uppercase;
+  background-image: linear-gradient(180deg, #8f6a16 0%, #c9a33c 48%, #f2d78a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .ag-stories {
@@ -1306,7 +1315,7 @@ text-transform: uppercase;
 
 .ag-story-wide {
   grid-column: 1 / -1;
-  min-height: clamp(400px, 30vw, 480px);
+  min-height: clamp(400px, 36vw, 665px);
   place-items: center;
 }
 
@@ -1327,14 +1336,14 @@ text-transform: uppercase;
     );
 }
 
-.ag-story-wide .ag-story-shade {
+/* .ag-story-wide .ag-story-shade {
   background: linear-gradient(
     180deg,
     rgba(8, 10, 8, 0.58),
     rgba(8, 10, 8, 0.48) 50%,
     rgba(8, 10, 8, 0.62)
   );
-}
+} */
 
 .ag-story-copy {
   position: relative;
@@ -1392,7 +1401,7 @@ text-transform: uppercase;
   margin-top: 1.45rem;
   padding: 0.35rem 0.4rem 0.35rem 1.35rem;
   color: #111;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
 
   border-radius: 50px;
@@ -1481,7 +1490,7 @@ backdrop-filter: blur(17px);
 
 .ag-footer-logo {
   display: inline-block;
-  max-width: 280px;
+  max-width: 380px;
 }
 
 .ag-footer-logo img {
@@ -1492,13 +1501,13 @@ backdrop-filter: blur(17px);
 .ag-footer-brand p,
 .ag-footer a,
 .ag-footer li {
-  color: #555;
-  font-size: 14.5px;
+  color: #111;
+  font-size: 20px;
   line-height: 1.75;
 }
 
 .ag-footer-brand p {
-  max-width: 18rem;
+  max-width: 32rem;
   margin: 0.55rem 0 0;
 }
 
@@ -1512,7 +1521,7 @@ backdrop-filter: blur(17px);
   margin: 0 0 0.95rem;
   color: #111;
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1542,8 +1551,8 @@ backdrop-filter: blur(17px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 46px;
+  height: 46px;
   border: 0;
   border-radius: 999px;
   color: #fff;
@@ -1588,12 +1597,12 @@ backdrop-filter: blur(17px);
   align-items: center;
   gap: 0.55rem;
   margin: 0;
-  color: #777;
+  color: #111;
   font-size: 13px;
 }
 
 .ag-footer-base a {
-  color: #777;
+  color: #111;
 }
 
 .ag-footer-base a:hover {

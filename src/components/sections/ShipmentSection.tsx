@@ -174,7 +174,7 @@ export function ShipmentSection() {
           >
             {steps.map((step) => (
               <article key={step.index} className="ag-step-card">
-                <div>
+                <div className="pt-4">
                   <h3>
                     {step.title[0]}
                     <br />
